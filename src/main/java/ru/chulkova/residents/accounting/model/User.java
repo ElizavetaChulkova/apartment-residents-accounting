@@ -1,9 +1,6 @@
 package ru.chulkova.residents.accounting.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +29,10 @@ public class User extends AbstractBaseEntity implements UserDetails {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "apartment_id", nullable = false)
+    private Apartment apartment;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

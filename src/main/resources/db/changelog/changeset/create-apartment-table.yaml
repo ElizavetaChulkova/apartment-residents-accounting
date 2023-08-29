@@ -19,7 +19,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: user_id
+                  name: owner_id
                   type: bigint
                   constraints:
-                    foreignKeyName: user_fk
+                    foreignKeyName: owner_fk
