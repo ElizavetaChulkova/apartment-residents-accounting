@@ -18,4 +18,6 @@ public interface ApartmentRepository extends JpaRepository<Apartment, Long> {
 
     @Override
     Optional<Apartment> findById(Long aLong);
+
+    Optional<Apartment> findApartmentByAddress(String address);
 }

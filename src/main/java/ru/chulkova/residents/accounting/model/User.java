@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Data
 @Entity
@@ -29,6 +30,12 @@ public class User extends AbstractBaseEntity implements UserDetails {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Apartment> property;
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Apartment residence;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

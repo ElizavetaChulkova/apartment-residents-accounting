@@ -8,7 +8,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.chulkova.residents.accounting.dto.ProfileDto;
 import ru.chulkova.residents.accounting.dto.UserDto;
+import ru.chulkova.residents.accounting.model.Apartment;
 import ru.chulkova.residents.accounting.model.User;
+import ru.chulkova.residents.accounting.repository.ApartmentRepository;
 import ru.chulkova.residents.accounting.repository.UserRepository;
 import ru.chulkova.residents.accounting.util.ProfileMapper;
 
@@ -19,7 +21,24 @@ import ru.chulkova.residents.accounting.util.ProfileMapper;
 public class UserController {
 
     private final UserRepository repository;
+    private final ApartmentRepository apartmentRepository;
     private final PasswordEncoder encoder;
+
+    @PostMapping("/add-resident")
+    public ResponseEntity<?> addResident(@AuthenticationPrincipal User user,
+                                         @RequestParam("resident") String residentName,
+                                         @RequestParam("address") String address) {
+        Apartment apartment = apartmentRepository.findApartmentByAddress(address)
+                .orElseThrow(() -> new RuntimeException("Residence not found"));
+        User resident = repository.findByName(residentName).orElseThrow();
+        if (apartment.getOwner().getId() == user.id()) {
+            resident.setResidence(apartment);
+            repository.save(resident);
+        } else {
+            throw new RuntimeException("You are not the owner of this house");
+        }
+        return ResponseEntity.ok("Resident added successfully");
+    }
 
     @GetMapping
     public ProfileDto getProfile(@AuthenticationPrincipal User user) {

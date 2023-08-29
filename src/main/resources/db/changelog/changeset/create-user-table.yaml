@@ -29,3 +29,6 @@ databaseChangeLog:
                   type: varchar
                   constraints:
                     nullable: false
+              - column:
+                  name: residence_id
+                  type: bigint

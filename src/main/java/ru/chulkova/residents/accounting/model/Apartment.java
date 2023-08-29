@@ -16,14 +16,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Apartment extends AbstractBaseEntity {
 
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = false, unique = true)
     private String address;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "owner_id", nullable = false, referencedColumnName = "id")
     private User owner;
-
-//    @OneToMany
-//    private List<User> residents;
 }
