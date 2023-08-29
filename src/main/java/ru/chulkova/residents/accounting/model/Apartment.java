@@ -10,7 +10,8 @@ import lombok.experimental.SuperBuilder;
 @Data
 @Entity
 @Table(name = "apartment", uniqueConstraints =
-@UniqueConstraint(name = "one_owner", columnNames = {"id", "owner_id"}))
+@UniqueConstraint(name = "one_owner", columnNames = {"id", "owner_id"}),
+        indexes = @Index(name = "address_idx", columnList = "address"))
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder

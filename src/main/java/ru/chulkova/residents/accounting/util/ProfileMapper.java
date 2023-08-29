@@ -9,7 +9,6 @@ public class ProfileMapper {
 
     public static ProfileDto getProfile(User user) {
         return ProfileDto.builder()
-                .id(user.id())
                 .name(user.getName())
                 .age(user.getAge())
                 .properties(user.getProperty()

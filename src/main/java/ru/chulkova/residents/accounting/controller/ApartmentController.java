@@ -27,6 +27,7 @@ public class ApartmentController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApartmentResponse> create(@AuthenticationPrincipal User user,
                                                     @RequestBody ApartmentDto apartmentDto) {
+        log.info("create new apartment");
         Apartment apartment = Apartment.builder()
                 .address(apartmentDto.getAddress())
                 .owner(user)
@@ -58,6 +59,7 @@ public class ApartmentController {
     @DeleteMapping(value = "/{apartmentId}")
     public void delete(@AuthenticationPrincipal User user,
                        @PathVariable("apartmentId") Long apartmentId) {
+        log.info("delete apartment");
         Apartment apartment = repository.findById(apartmentId).orElseThrow();
         repository.delete(apartment);
     }

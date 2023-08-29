@@ -1,18 +1,17 @@
 package ru.chulkova.residents.accounting.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
-import ru.chulkova.residents.accounting.model.AbstractBaseEntity;
 
 import java.util.List;
 
 @Data
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProfileDto extends AbstractBaseEntity {
+public class ProfileDto {
 
     private String name;
 

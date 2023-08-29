@@ -28,6 +28,7 @@ public class UserController {
     public ResponseEntity<?> addResident(@AuthenticationPrincipal User user,
                                          @RequestParam("resident") String residentName,
                                          @RequestParam("address") String address) {
+        log.info("add new resident to property {}", address);
         Apartment apartment = apartmentRepository.findApartmentByAddress(address)
                 .orElseThrow(() -> new RuntimeException("Residence not found"));
         User resident = repository.findByName(residentName).orElseThrow();
@@ -42,6 +43,7 @@ public class UserController {
 
     @GetMapping
     public ProfileDto getProfile(@AuthenticationPrincipal User user) {
+        log.info("get user profile {}", user.getName());
         return ProfileMapper.getProfile(repository.findByName(user.getName())
                 .orElseThrow());
     }
@@ -59,6 +61,7 @@ public class UserController {
 
     @DeleteMapping
     public ResponseEntity<?> delete(@AuthenticationPrincipal User user) {
+        log.info("delete user");
         repository.delete(user);
         return ResponseEntity.ok("You deleted your account");
     }
