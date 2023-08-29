@@ -1,12 +1,11 @@
 package ru.chulkova.residents.accounting.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.util.List;
 
 @Data
 @Entity
@@ -20,10 +19,11 @@ public class Apartment extends AbstractBaseEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "owner_id", nullable = false, referencedColumnName = "id")
     private User owner;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "apartment")
-    private List<User> residents;
+//    @OneToMany
+//    private List<User> residents;
 }
