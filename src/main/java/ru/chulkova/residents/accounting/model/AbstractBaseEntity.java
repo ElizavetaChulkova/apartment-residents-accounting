@@ -12,17 +12,10 @@ import org.springframework.util.Assert;
 @AllArgsConstructor
 @Access(AccessType.FIELD)
 @MappedSuperclass
-public class AbstractBaseEntity {
+public abstract class AbstractBaseEntity {
 
     @Id
-    @SequenceGenerator(
-            name = "user_id_seq",
-            sequenceName = "user_id_seq"
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "user_id_seq"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     protected Long id;
 
