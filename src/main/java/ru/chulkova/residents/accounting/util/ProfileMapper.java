@@ -15,7 +15,8 @@ public class ProfileMapper {
                         .stream()
                         .map(ApartmentMapper::getTo)
                         .collect(Collectors.toList()))
-                .residence(ApartmentMapper.getTo(user.getResidence()))
+                .residence(user.getResidence() == null ?
+                        null :  ApartmentMapper.getTo(user.getResidence()))
                 .build();
     }
 }

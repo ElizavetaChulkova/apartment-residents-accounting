@@ -21,7 +21,6 @@ public class Apartment extends AbstractBaseEntity {
     private String address;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "owner_id", nullable = false, referencedColumnName = "id")
     private User owner;
 }
